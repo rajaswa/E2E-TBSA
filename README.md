@@ -1,11 +1,14 @@
 # E2E-TBSA
-Source code of our AAAI paper on End-to-End Target/Aspect-Based Sentiment Analysis.
+* Source code of our AAAI paper on End-to-End Target/Aspect-Based Sentiment Analysis.
+* code debugged and ready to run (by @rajaswa)
 
 ## Requirements
 * Python 3.6
 * [DyNet 2.0.2](https://github.com/clab/dynet) (For building DyNet and enabling the python bindings, please follow the instructions in this [link](http://dynet.readthedocs.io/en/latest/python.html#manual-installation))
 * nltk 3.2.2
 * numpy 1.13.3
+* put the required embedding file (.txt) in the "./embeddings/" directory
+* saved models will be stored in the "./models/" directory
 
 ## Data
 * **rest_total** consist of the reviews from the SemEval-2014, SemEval-2015, SemEval-2016 restaurant datasets.

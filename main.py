@@ -163,7 +163,7 @@ if __name__ == '__main__':
     # random.seed(random_seed)
 
     parser = argparse.ArgumentParser(description="Open Domain ABSA")
-    parser.add_argument("-ds_name", type=str, default='rest14', help="dataset name")
+    parser.add_argument("-ds_name", type=str, default='rest_total', help="dataset name")
     # dimension of LSTM hidden representations
     parser.add_argument("-dim_char", type=int, default=30, help="dimension of char embeddings")
     parser.add_argument("-dim_char_h", type=int, default=50, help="dimension of char hidden representations")
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     parser.add_argument("-dropout", type=float, default=0.5, help="dropout rate for final representations")
     parser.add_argument("-emb_name", type=str, default="glove_840B", help="name of word embedding")
     # Note: tagging schema is OT in the original data record
-    parser.add_argument("-tagging_schema", type=str, default="BIO", help="tagging schema")
+    parser.add_argument("-tagging_schema", type=str, default="BIEOS", help="tagging schema")
     parser.add_argument("-rnn_type", type=str, default="LSTM",
                         help="type of rnn unit, currently only LSTM and GRU are supported")
     parser.add_argument("-sgd_lr", type=float, default=0.1,
@@ -209,7 +209,7 @@ if __name__ == '__main__':
         'amazon_laptop': '/projdata9/info_fil/lixin/Resources/amazon_full/vectors/amazon_laptop_vec_200_5.txt'
     }
 
-    emb_path = emb2path[emb_name]
+    emb_path = 'embeddings/glove.840B.300d.txt'#emb2path[emb_name]
 
     input_win = args.input_win
     stm_win = args.stm_win

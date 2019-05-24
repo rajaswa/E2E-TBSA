@@ -692,7 +692,7 @@ def load_embeddings(path, vocab, ds_name, emb_name):
     else:
         print("Load embedding from %s..." % path)
         raw_embeddings = {}
-        with open(path) as fp:
+        with open(path, encoding='utf-8') as fp:
             for line in fp:
                 eles = line.strip().split(' ')
                 word = eles[0]
@@ -951,4 +951,3 @@ def semeval2conll(dataset):
         # use empty line to seprate the samples
         conll_lines.append('\n')
     return conll_lines
-
