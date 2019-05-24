@@ -1,5 +1,5 @@
 import argparse
-from model import *
+from model_for_prediction import *
 from utils import *
 from evals import evaluate
 import random
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     # random.seed(random_seed)
 
     parser = argparse.ArgumentParser(description="Open Domain ABSA")
-    parser.add_argument("-ds_name", type=str, default='rest_total', help="dataset name")
+    parser.add_argument("-ds_name", type=str, default='laptop14', help="dataset name")
     # dimension of LSTM hidden representations
     parser.add_argument("-dim_char", type=int, default=30, help="dimension of char embeddings")
     parser.add_argument("-dim_char_h", type=int, default=50, help="dimension of char hidden representations")
@@ -252,7 +252,7 @@ if __name__ == '__main__':
     args.char_vocab = char_vocab
     model = Model(params=args, vocab=vocab, embeddings=embeddings, char_embeddings=char_embeddings)
 
-    mode = 'train-test'
+    mode = 'test' #Testing / predicting
     if mode == 'train-test':
         final_res_string, model_path = run(dataset=[train, val, test], model=model, params=args)
         log_lines.append(final_res_string + "\n")
@@ -264,7 +264,30 @@ if __name__ == '__main__':
         with open('log/%s.txt' % ds_name, 'a') as fp:
             fp.writelines(log_lines)
     else:
-        model.decoding(dataset=test, model_name='lstm_cascade_laptop14_0.573138.model')
+        model.decoding(dataset=test, model_name='rest_total_0.682823.model')
+
+
+        #need to predict ote sequence
+        # {'O': 0, 'B': 1, 'I': 2, 'E': 3, 'S': 4}
+        '''
+{'sentence': 'Meal was very expensive for what you get.', 
+'words': ['meal', 'was', 'very', 'expensive', 'for', 'what', 'you', 'get', 'PUNCT'], 
+'ote_raw_tags': ['T', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], 
+'ts_raw_tags': ['T-NEG', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], 
+'lm_labels': [368, 5, 35, 1443, 24, 59, 42, 72, 0], 
+'wids': [[1, 368, 5], [368, 5, 35], [5, 35, 1443], [35, 1443, 24], [1443, 24, 59], [24, 59, 42], [59, 42, 72], [42, 72, 0], [72, 0, 1]], 
+'cids': [[16, 47, 7, 31], [21, 7, 40], [34, 47, 49, 30], [47, 9, 50, 47, 3, 40, 1, 34, 47], [24, 10, 49], [21, 48, 7, 28], [30, 10, 53], [5, 47, 28], [56, 13, 17, 8, 22]], 
+'ote_tags': ['S', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], 
+'ts_tags': ['S-NEG', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], 
+'ote_labels': [4, 0, 0, 0, 0, 0, 0, 0, 0], 
+'ts_labels': [8, 0, 0, 0, 0, 0, 0, 0, 0], 
+'lm_labels_f': [5, 35, 1443, 24, 59, 42, 72, 0, 1], 
+'lm_labels_b': [72, 42, 59, 24, 1443, 35, 5, 368, 1], 
+'stm_lm_labels': [1, 1, 1, 0, 1, 1, 1, 0, 0]}
+
+Predcited OTE sequence 
+[4, 0, 0, 0, 0, 0, 0, 0, 0]
+        '''
 
 
 

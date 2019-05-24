@@ -13,20 +13,20 @@ def ot2bio_ote(ote_tag_sequence):
     :param ote_tag_sequence:
     :return:
     """
-    new_ote_sequence = []
-    n_tag = len(ote_tag_sequence)
-    prev_ote_tag = '$$$'
+    new_ote_sequence = []                                            #initialize empty sequence for tagging beginning, inside or null sentiment.
+    n_tag = len(ote_tag_sequence)                                    #length of simple target word sequence
+    prev_ote_tag = '$$$'                                             #initialize random prev prev ote tag
     for i in range(n_tag):
         cur_ote_tag = ote_tag_sequence[i]
-        assert cur_ote_tag == 'O' or cur_ote_tag == 'T'
-        if cur_ote_tag == 'O':
+        assert cur_ote_tag == 'O' or cur_ote_tag == 'T'				 #current tag should be either null tag or target tag
+        if cur_ote_tag == 'O':                                       #if null sentiment tag, then attach as it is, no need to check the position
             new_ote_sequence.append(cur_ote_tag)
         else:
             # cur_ote_tag is T
-            if prev_ote_tag == 'T':
+            if prev_ote_tag == 'T':									 #if previous word's tag was also target then this word will be inside the sequence
                 new_ote_sequence.append('I')
             else:
-                # cur tag is at the beginning of the opinion target
+                													# cur tag is at the beginning of the opinion target
                 new_ote_sequence.append('B')
         prev_ote_tag = cur_ote_tag
     return new_ote_sequence
